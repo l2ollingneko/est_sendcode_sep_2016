@@ -9,7 +9,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Parse.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-est.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReachabilitySwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftHEXColors.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -24,15 +44,35 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>THLabel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2AF7893722960579203563AF3C5C6E1A</key>
+		<key>0775BBC1170F46A6AB3F22FE7D25D0BE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5CE2E0D14CA1714599027F3B8E0DCCCE</key>
+		<key>2C8AA1BAF35413BDB954A1DF93576ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>42921C5F24F7E2B4C888EE96F7E19752</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6213C7D3F68636A575AAE521463B27A1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7129FAB61478FA70223DADF4921468CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +82,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8A0D9B701A79EFEE8C1B99378AEB5459</key>
+		<key>A76EF7F1C286CE8A79B7DA39388E337B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB6B3941EAD150FD71A50B9BED8CF5F7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DDA7B7A94DB13618CE547CEA64DDFBF2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -7,7 +7,14 @@ target 'est' do
 	
 	# Pods for est
 	pod 'Alamofire'
-	pod 'SwiftyJSON'
+	pod 'SwiftyJSON', '~> 2.3.2'
 	pod 'SwiftKeychainWrapper'
+	pod 'ReachabilitySwift', '~> 2.4'
+	pod 'THLabel'
+	pod 'SwiftHEXColors'
+	# Analytics
+	pod 'Google/Analytics'
+	pod 'AppsFlyer-SDK'
+	pod 'Parse'
 
 end

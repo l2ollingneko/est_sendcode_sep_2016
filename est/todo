@@ -1,0 +1,86 @@
+------------------------------------
+est cola sendcode sep 2016 todo list
+------------------------------------
+
+## controller [0/100]
+
++ sendcode [0/100]
+    - code index (number) [x]
+    - phone number text field []
+        + phone number checker []
+            1. begins with 06 08 and 09 [x]
+                2.1 alert if the phone number don't begin with 06 08 and 09 []
+            2. contains 10 digits [x]
+                2.1 alert if the phone number don't have 10 digits []
+            3. check mark []
+            4. save phone number to userdefault if phone number is valid [x]
+    - code text field []
+        + code status
+            1. VALID
+            2. EXISTING_CODE
+            3. INCORRECT_FORMAT
+        + cases
+            1. no EXISTING_CODE and INCORRECT_FORMAT
+                - show popup thanks
+            2. if it has at least "single" VALID
+                - do not show popup thanks
+                - delete a VALID code
+                - show error message
+                - show alert (red background) at that error code index without delete that code
+        1. contains 10 or 11 digits []
+    - check daily quota
+    - tested case
+        1. redundant code [x]
+        2. code that less than 11 digits [x]
+
++ check winner [0/100]
+    - phone number text field [0/100]
+        + phone number checker []
+            1. begins with 06 08 and 09 [x]
+                2.1 alert if the phone number don't begin with 06 08 and 09 []
+            2. contains 10 digits [x]
+                2.1 alert if the phone number don't have 10 digits []
+            3. check mark []
+    - check button [0/100]
+    - date label for announce ment [0/100]
+        + date converter from api to string []
+        + date color that matched to announce [x]
+            1. black text, yello border -> already announced [x]
+            2. yellow text, black border -> coming announce, next announcement [x]
+
++ web view [100/100]
+    - rule [x]
+    - how to [x]
+
+## component [0/100]
+
++ popup [0/100]
+    - thanks []
+    - loser []
+    - winner []
+    - soon []
+    - tvc []
+
++ noti badge counter in navbar []
+
+## api [0/100]
+    - get dataInfo api and save to userdefault [x] (1)
+    - send code api []
+        + send code (2)
+        + check daily quota (3)
+    - check winner api []
+        + send phone number for response [] (5)
+        + check an announcement [] (4)
+    - check for noti badge counter [] (8)
+    - stats []
+        + fb share for sendcode (6)
+        + fb share for winner (7)
+        + open app (II1)
+        + send code stat (send code button) (II2)
+
+## analytics [0/100]
+    - wait for google analytics doc []
+
+## facebook [0/100]
+    - share menu []
+    - share in popup []
