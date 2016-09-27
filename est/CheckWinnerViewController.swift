@@ -13,11 +13,27 @@ class CheckWinnerViewController: EstTableViewController {
     var backgroundTableView = UITableView()
     
     var phoneNumber: String = ""
+    var sendable: Bool = false
+    
+    var currentIndex: Int = 1
+    
+    // MARK: - models, lazy implementation
+    
+    var winners = [String]()
+    var dateText = [String]()
+    var status = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        self.view.backgroundColor = UIColor.clearColor()
+        self.view.clipsToBounds = true
+        self.tableView.backgroundColor = UIColor.clearColor()
+        self.tableView.clipsToBounds = true
+        self.backgroundTableView.backgroundColor = UIColor.clearColor()
+        self.backgroundTableView.clipsToBounds = true
         
         self.backgroundTableView.frame = CGRectMake(0.0, 0.0, Est.rWidth, Est.rHeight)
         self.backgroundTableView.dataSource = self
@@ -44,6 +60,8 @@ class CheckWinnerViewController: EstTableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.getWinnerAnnounce()
         
         // MARK: - get phone number from userdefault
         if let phoneNumberObject = DataManager.sharedInstance.getObjectForKey("phone_number") {
@@ -91,21 +109,40 @@ class CheckWinnerViewController: EstTableViewController {
             } else if (indexPath.row == 1) {
                 let cell = tableView.dequeueReusableCellWithIdentifier("sendButtonCell", forIndexPath: indexPath) as! SendButtonTableViewCell
                 cell.initCell(true)
+                cell.delegate = self
                 return cell
             } else if (indexPath.row == 2 || indexPath.row == 7) {
                 let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
                 cell.backgroundColor = UIColor.clearColor()
+                cell.selectionStyle = .None
                 return cell
             } else {
+                // row -> 3, 4, 5 and 6
                 let cell = tableView.dequeueReusableCellWithIdentifier("announceCell", forIndexPath: indexPath) as! AnnounceTableViewCell
-                cell.initCell()
+                // cell.initCell()
+                if (self.status.count > 0) {
+                    cell.initCell(self.dateText[indexPath.row - 3], type: 1)
+                    /*
+                    if (self.status[indexPath.row - 3] == "true") {
+                        if (self.currentIndex - 1 > indexPath.row - 3) {
+                            cell.initCell(self.dateText[indexPath.row - 3], type: 1)
+                        } else {
+                            cell.initCell(self.dateText[indexPath.row - 3], type: 0)
+                        }
+                    } else {
+                        cell.initCell(self.dateText[indexPath.row - 3], type: 1)
+                    }
+                     */
+                }
                 // let colors = [UIColor.redColor(), UIColor.blueColor(), UIColor.purpleColor(), UIColor.blackColor()]
                 // cell.backgroundColor = colors[indexPath.row - 3].colorWithAlphaComponent(0.5)
                 return cell
             }
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("backgroundCell", forIndexPath: indexPath) as! CheckWinnerBackgroundTableViewCell
-            cell.initCell(4)
+            print("currentIndex: --------")
+            print(self.currentIndex)
+            cell.initCell(self.currentIndex)
             return cell
         }
     }
@@ -135,6 +172,79 @@ class CheckWinnerViewController: EstTableViewController {
     override func notiDidTap() {
         // do nothing -> current controller
     }
+    
+    func checkValidPhoneNumber(phoneNumber: String) -> Bool {
+        if (phoneNumber.characters.count == 10) {
+            print("check a")
+            let infix = phoneNumber.substringToIndex(phoneNumber.startIndex.advancedBy(2))
+            if (infix == "08" || infix == "06" || infix == "09") {
+                print("check b")
+                self.sendable = true
+                return true
+            }
+        }
+        self.sendable = false
+        return false
+    }
+    
+    // MARK: - api
+    
+    func getWinnerAnnounce() {
+        EstHTTPService.sharedInstance.checkWinnerAnnounce(Callback() { (jsons, success, errorString, error) in
+            if (success) {
+                self.winners.removeAll()
+                self.dateText.removeAll()
+                self.status.removeAll()
+                self.currentIndex = 1
+                for (index, json) in jsons!.enumerate() {
+                    print("index: \(index)")
+                    print(json)
+                    if let winner = json["winner"].string {
+                        self.winners.append(winner)
+                    }
+                    if let date = json["datetext"].string {
+                        self.dateText.append(date)
+                    }
+                    if let status = json["status"].string {
+                        print("status: \(status)")
+                        self.status.append(status)
+                        if (status == "true") {
+                            self.currentIndex = index + 2
+                        }
+                    }
+                }
+                self.tableView.reloadData()
+                self.backgroundTableView.reloadData()
+            }
+        })
+    }
+    
+    // MARK: - popup
+    
+    func presentWinnerPopup() {
+        let popup = PopupViewController(nibName: "PopupViewController", bundle: nil)
+        popup.modalPresentationStyle = .OverCurrentContext
+        popup.initPopup(3)
+        self.definesPresentationContext = true
+        self.presentViewController(popup, animated: false, completion: nil)
+    }
+    
+    func presentLoserPopup(prizeCount: String) {
+        let popup = PopupViewController(nibName: "PopupViewController", bundle: nil)
+        popup.modalPresentationStyle = .OverCurrentContext
+        popup.initPopup(2)
+        popup.prizeCountLabel.text = prizeCount
+        self.definesPresentationContext = true
+        self.presentViewController(popup, animated: false, completion: nil)
+    }
+    
+    func presentSoonPopup() {
+        let popup = PopupViewController(nibName: "PopupViewController", bundle: nil)
+        popup.modalPresentationStyle = .OverCurrentContext
+        popup.initPopup(1)
+        self.definesPresentationContext = true
+        self.presentViewController(popup, animated: false, completion: nil)
+    }
 
     /*
     // MARK: - Navigation
@@ -146,6 +256,61 @@ class CheckWinnerViewController: EstTableViewController {
     }
     */
 
+}
+
+extension CheckWinnerViewController: SendButtonTableViewCellDelegate {
+
+    func checkButtonDidTap() {
+        // MARK: - googleanalytics
+        AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Click_check")
+        
+        if (self.checkValidPhoneNumber(self.phoneNumber)) {
+            print("valid phone number")
+            EstHTTPService.sharedInstance.checkWinner(self.phoneNumber, cb: Callback() { (json, success, string, error) in
+                if (success) {
+                    print("success")
+                    if (string == "winner") {
+                        // MARK: - popup winner
+                        self.presentWinnerPopup()
+                    } else if (string == "notwinner") {
+                        // MARK: - popup notwinner
+                        let prizeCount = json!["detail"].string
+                        self.presentLoserPopup(prizeCount!)
+                    } else {
+                        // MARK: - soon
+                        self.presentSoonPopup()
+                    }
+                } else {
+                    print("fail")
+                    // MARK: - popup error
+                }
+            })
+        } else {
+            print("invalid phone number")
+        }
+        
+        /*
+        if let phoneNumberData = DataManager.sharedInstance.getObjectForKey("phone_number") {
+            EstHTTPService.sharedInstance.checkWinner(phoneNumberData as! String, cb: Callback() { (json, success, string, error) in
+                if (success) {
+                    if (string == "winner") {
+                        // MARK: - popup winner
+                        self.presentWinnerPopup()
+                    } else if (string == "notwinner") {
+                        // MARK: - popup notwinner
+                        self.presentLoserPopup()
+                    } else {
+                        // MARK: - soon
+                        self.presentSoonPopup()
+                    }
+                } else {
+                    // MARK: - popup error
+                }
+            })
+        }
+         */
+    }
+    
 }
 
 extension CheckWinnerViewController: UITextFieldDelegate {

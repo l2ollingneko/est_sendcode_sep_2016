@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import THLabel
 
 class PopupViewController: UIViewController {
     
@@ -14,6 +15,8 @@ class PopupViewController: UIViewController {
     var closeImageView = UIImageView()
     var closeButton = UIButton()
     var shareButton = UIButton()
+    
+    var prizeCountLabel = THLabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +73,7 @@ class PopupViewController: UIViewController {
             case 2:
                 self.popupImageView.image = UIImage(named: "loser_popup")
                 self.initShareButton()
+                self.initLoserPopup()
                 // MARK: - googleanalytics
                 AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Page, action: .Opened, label: "estSendCode-NotPrize")
             case 3:
@@ -97,6 +101,19 @@ class PopupViewController: UIViewController {
         self.shareButton.setImage(UIImage(named: "popup_fb_share_button"), forState: .Normal)
         self.shareButton.addTarget(self, action: #selector(PopupViewController.share), forControlEvents: .TouchUpInside)
         self.popupImageView.addSubview(self.shareButton)
+    }
+    
+    func initLoserPopup() {
+        self.prizeCountLabel.frame = Est.calculatedRectFromRatio(884.0, y: 1276.0, w: 100.0, h: 60.0)
+        self.prizeCountLabel.font = UIFont(name: Est.DBHELVETHAICA_X_BOLD_ITALIC, size: Est.calculatedHeightFromRatio(74.0))
+        self.prizeCountLabel.textColor = Est.EST_YELLOW
+        self.prizeCountLabel.strokeColor = UIColor.blackColor()
+        self.prizeCountLabel.strokeSize = Est.calculatedWidthFromRatio(10.0)
+        self.prizeCountLabel.textAlignment = .Center
+        
+        self.prizeCountLabel.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * 1.969)
+        
+        self.popupImageView.addSubview(self.prizeCountLabel)
     }
     
     func initWinnerPopup() {

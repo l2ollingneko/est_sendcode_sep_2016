@@ -28,7 +28,16 @@ class EstHTTPService {
         "shareresult_url",
         "shareresult_title",
         "shareresult_description",
-        "page_prize",
+        "shareresult_image",
+        "sharewinner_url",
+        "sharewinner_title",
+        "sharewinner_description",
+        "sharewinner_image",
+        "sharenotwin_url",
+        "sharenotwin_title",
+        "sharenotwin_description",
+        "sharenotwin_image",
+        "page_tvc",
         "page_rule",
         "page_howto",
         "api_stat",
@@ -94,6 +103,48 @@ class EstHTTPService {
                 }
             } else {
                 print("can't send code: exit b, \(response.result.error?.localizedDescription)")
+                cb.callback(nil, false, nil, response.result.error)
+            }
+        }
+    }
+    
+    func checkWinnerAnnounce(cb: Callback<[JSON]>) {
+        let url = self.BASE_API_URL + "mobileapp_getWinnerAnnounce.aspx"
+        
+        Alamofire.request(.GET, url).responseJSON { response in
+            if let data: AnyObject = response.result.value {
+                let json = JSON(data)
+                var jsons = [JSON]()
+                for j in json["data"].array! {
+                    jsons.append(j)
+                }
+                cb.callback(jsons, true, nil, nil)
+            } else {
+                cb.callback(nil, false, nil, response.result.error)
+            }
+        }
+    }
+    
+    func checkWinner(mobileno: String, cb: Callback<JSON>) {
+        let url = self.BASE_API_URL + "mobileapp_checkwinner.aspx"
+        
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["mobileno"] = mobileno
+        
+        Alamofire.request(.POST, url, parameters: parameters).responseJSON { response in
+            if let data: AnyObject = response.result.value {
+                let json = JSON(data)
+                print(json)
+                if (json["result"].string == "winner") {
+                    cb.callback(json, true, "winner", nil)
+                } else if (json["result"].string == "notwinner") {
+                    cb.callback(json, true, "notwinner", nil)
+                } else if (json["result"].string == "waitingtime") {
+                    cb.callback(json, true, "waitingtime", nil)
+                } else {
+                    cb.callback(nil, false, nil, nil)
+                }
+            } else {
                 cb.callback(nil, false, nil, response.result.error)
             }
         }

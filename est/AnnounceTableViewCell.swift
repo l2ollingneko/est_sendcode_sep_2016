@@ -47,10 +47,11 @@ class AnnounceTableViewCell: UITableViewCell {
     func initCell(date: String, type: Int) {
         self.dateLabel.frame = CGRectMake(Est.calculatedWidthFromRatio(276.0), Est.calculatedHeightFromRatio(72.0), Est.calculatedWidthFromRatio(510.0), Est.calculatedHeightFromRatio(90.0))
         self.dateLabel.font = UIFont(name: Est.DBHELVETHAICA_X_BOLD_ITALIC, size: Est.calculatedHeightFromRatio(74.0))
-        self.dateLabel.text = "3 ตุลาคม 2559"
+        self.dateLabel.text = date
         
         self.dateLabel.strokeSize = Est.calculatedWidthFromRatio(10.0)
         
+        // past
         if (type == 0) {
             self.dateLabel.textColor = UIColor.blackColor()
             self.dateLabel.strokeColor = Est.EST_YELLOW

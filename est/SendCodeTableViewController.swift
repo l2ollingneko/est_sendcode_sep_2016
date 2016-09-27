@@ -35,6 +35,13 @@ class SendCodeTableViewController: EstTableViewController {
 
         // Do any additional setup after loading the view.
         
+        self.view.backgroundColor = UIColor.clearColor()
+        self.view.clipsToBounds = true
+        self.tableView.backgroundColor = UIColor.clearColor()
+        self.tableView.clipsToBounds = true
+        self.backgroundTableView.backgroundColor = UIColor.clearColor()
+        self.backgroundTableView.clipsToBounds = true
+        
         self.backgroundTableView.frame = CGRectMake(0.0, 0.0, Est.rWidth, Est.rHeight)
         self.backgroundTableView.dataSource = self
         self.backgroundTableView.delegate = self
@@ -71,7 +78,10 @@ class SendCodeTableViewController: EstTableViewController {
             let phoneNumber = phoneNumberObject as! String
             if (self.checkValidPhoneNumber(phoneNumber)) {
                 self.phoneNumber = phoneNumber
+                self.sendable = true
                 self.tableView.reloadData()
+            } else {
+                self.sendable = false
             }
         }
         
@@ -258,13 +268,25 @@ class SendCodeTableViewController: EstTableViewController {
         }
     }
     
+    func checkValidPhoneNumber(phoneNumber: String) -> Bool {
+        if (phoneNumber.characters.count == 10) {
+            let infix = phoneNumber.substringToIndex(phoneNumber.startIndex.advancedBy(2))
+            if (infix == "08" || infix == "06" || infix == "09") {
+                self.sendable = true
+                return true
+            }
+        }
+        self.sendable = false
+        return false
+    }
+    
     // MARK: - api
     
     func checkDailyQuota() {
         if let phoneData = DataManager.sharedInstance.getObjectForKey("phone_number") {
             EstHTTPService.sharedInstance.checkDailyQuota(phoneData as! String, cb: Callback() { (quota, success, errorString, error) in
                 if (success) {
-                    self.dailyQuota = quota! - 99990
+                    self.dailyQuota = quota!
                     self.tableView.reloadData()
                 } else {
                     // TODO: ...
@@ -302,6 +324,7 @@ extension SendCodeTableViewController: UITextFieldDelegate  {
             if (self.checkValidPhoneNumber(textField.text!)) {
                 print("valid phone number")
                 DataManager.sharedInstance.setObjectForKey(textField.text!, key: "phone_number")
+                self.phoneNumber = textField.text!
             } else {
                 print("invalid phone number")
             }
@@ -330,6 +353,11 @@ extension SendCodeTableViewController: SendButtonTableViewCellDelegate {
         
         // MARK: - googleanalytics
         AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Click_submitCode")
+        
+        if (!self.sendable) {
+            // TODO: - show error popup ( phone number )
+            return
+        }
         
         var codes = [String]()
         if (self.codes.count > 0) {

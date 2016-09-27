@@ -67,8 +67,8 @@ class ControllerManager {
                 value = DataManager.sharedInstance.getObjectForKey("page_rule") as! String
             case .HowTo:
                 value = DataManager.sharedInstance.getObjectForKey("page_howto") as! String
-            case .Winner:
-                value = DataManager.sharedInstance.getObjectForKey("page_prize") as! String
+            case .Tvc:
+                value = DataManager.sharedInstance.getObjectForKey("page_tvc") as! String
         }
         let webView =  WebviewViewController(nibName: "WebviewViewController", bundle: nil)
         webView.presentWebView(value)

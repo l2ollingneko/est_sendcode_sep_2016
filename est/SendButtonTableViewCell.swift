@@ -63,6 +63,7 @@ class SendButtonTableViewCell: UITableViewCell {
     }
     
     func check() {
+        print("checkButtonDidTap")
         self.delegate?.checkButtonDidTap!()
     }
     

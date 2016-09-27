@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKShareKit
 
 class MenuTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EstNavigationBarDelegate {
     
@@ -28,6 +30,11 @@ class MenuTableViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         
         self.navbar.delegate = self
+        
+        self.view.backgroundColor = UIColor.clearColor()
+        self.view.clipsToBounds = true
+        self.tableView.backgroundColor = UIColor.clearColor()
+        self.tableView.clipsToBounds = true
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -62,7 +69,7 @@ class MenuTableViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 6
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -90,6 +97,7 @@ class MenuTableViewController: UIViewController, UITableViewDataSource, UITableV
             AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Menu_how")
         } else if (indexPath.row == 3) {
             // TODO: - tvc
+            ControllerManager.sharedInstance.presentWebView(.Tvc)
             AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Menu_tvc")
         } else if (indexPath.row == 4) {
             ControllerManager.sharedInstance.presentCheckWinner()

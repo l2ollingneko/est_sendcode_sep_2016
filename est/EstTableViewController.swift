@@ -84,6 +84,7 @@ class EstTableViewController: UIViewController, UITableViewDataSource, UITableVi
 
     // MARK: - check phone number
     
+    /*
     func checkValidPhoneNumber(phoneNumber: String) -> Bool {
         if (phoneNumber.characters.count == 10) {
             let infix = phoneNumber.substringToIndex(phoneNumber.startIndex.advancedBy(2))
@@ -93,5 +94,6 @@ class EstTableViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         return false
     }
+     */
     
 }

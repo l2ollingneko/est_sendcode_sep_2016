@@ -27,6 +27,14 @@ class WebviewViewController: UIViewController, EstNavigationBarDelegate {
         // Do any additional setup after loading the view.
         self.navBar.delegate = self
         
+        self.view.backgroundColor = UIColor.clearColor()
+        self.view.clipsToBounds = true
+        self.webView.backgroundColor = UIColor.clearColor()
+        self.webView.clipsToBounds = true
+        self.webView.scrollView.clipsToBounds = true
+        
+        self.webView.scrollView.frame = self.webView.frame
+        
         self.view.addSubview(self.webView)
         self.view.addSubview(self.navBar)
         
@@ -39,6 +47,7 @@ class WebviewViewController: UIViewController, EstNavigationBarDelegate {
     }
     
     func presentWebView(url: String) {
+        print("webView url: \(url)")
         let requestURL = NSURL(string: url)
         let request = NSURLRequest(URL: requestURL!)
         self.webView.loadRequest(request)

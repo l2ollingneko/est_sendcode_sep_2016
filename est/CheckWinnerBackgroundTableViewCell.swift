@@ -15,6 +15,8 @@ class CheckWinnerBackgroundTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        self.selectionStyle = .None
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -30,11 +32,16 @@ class CheckWinnerBackgroundTableViewCell: UITableViewCell {
     }
     
     func initCell(announce: Int) {
-        self.backgroundView = UIImageView(frame: CGRectMake(0.0, 0.0, Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(3568.0)))
-        (self.backgroundView as! UIImageView).image = UIImage(named: "check_winner_bg")
-        (self.backgroundView as! UIImageView).contentMode = .ScaleToFill
+        if (self.backgroundView == nil) {
+            self.backgroundView = UIImageView(frame: CGRectMake(0.0, 0.0, Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(3568.0)))
+            (self.backgroundView as! UIImageView).image = UIImage(named: "check_winner_bg")
+            (self.backgroundView as! UIImageView).contentMode = .ScaleToFill
+        }
         
         // x: 0, y: 1558
+        self.announceImageView.removeFromSuperview()
+        self.announceImageView.image = nil
+        
         self.announceImageView = UIImageView(frame: CGRectMake(0.0, Est.calculatedHeightFromRatio(1558.0), Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(1741.0)))
         self.announceImageView.image = UIImage(named: "announce_\(announce)")
         self.announceImageView.contentMode = .ScaleToFill

@@ -9,5 +9,5 @@
 import Foundation
 
 enum EstWebViewPage {
-    case Rule, HowTo, Winner
+    case Rule, HowTo, Tvc
 }

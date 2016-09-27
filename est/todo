@@ -12,9 +12,9 @@ est cola sendcode sep 2016 todo list
                 2.1 alert if the phone number don't begin with 06 08 and 09 []
             2. contains 10 digits [x]
                 2.1 alert if the phone number don't have 10 digits []
-            3. check mark []
+            3. checkmark []
             4. save phone number to userdefault if phone number is valid [x]
-    - code text field []
+    - code text field [x]
         + code status
             1. VALID
             2. EXISTING_CODE
@@ -27,8 +27,8 @@ est cola sendcode sep 2016 todo list
                 - delete a VALID code
                 - show error message
                 - show alert (red background) at that error code index without delete that code
-        1. contains 10 or 11 digits []
-    - check daily quota
+        1. contains 10 or 11 digits [x]
+    - check daily quota [x]
     - tested case
         1. redundant code [x]
         2. code that less than 11 digits [x]
@@ -40,7 +40,7 @@ est cola sendcode sep 2016 todo list
                 2.1 alert if the phone number don't begin with 06 08 and 09 []
             2. contains 10 digits [x]
                 2.1 alert if the phone number don't have 10 digits []
-            3. check mark []
+            3. checkmark []
     - check button [0/100]
     - date label for announce ment [0/100]
         + date converter from api to string []
