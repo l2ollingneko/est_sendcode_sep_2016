@@ -11,6 +11,7 @@ import UIKit
 class CheckWinnerViewController: EstTableViewController {
     
     var backgroundTableView = UITableView()
+    var activeTextField: UITextField?
     
     var phoneNumber: String = ""
     var sendable: Bool = false
@@ -105,6 +106,7 @@ class CheckWinnerViewController: EstTableViewController {
                 cell.initCell(true)
                 cell.textField.delegate = self
                 cell.textField.text = self.phoneNumber
+                self.activeTextField = cell.textField
                 return cell
             } else if (indexPath.row == 1) {
                 let cell = tableView.dequeueReusableCellWithIdentifier("sendButtonCell", forIndexPath: indexPath) as! SendButtonTableViewCell
@@ -263,6 +265,14 @@ extension CheckWinnerViewController: SendButtonTableViewCellDelegate {
     func checkButtonDidTap() {
         // MARK: - googleanalytics
         AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Click_check")
+        
+        if (self.activeTextField != nil) {
+            if (self.activeTextField?.text != nil && self.activeTextField!.text?.characters.count == 10) {
+                if (self.checkValidPhoneNumber(self.activeTextField!.text!)) {
+                    self.phoneNumber = self.activeTextField!.text!
+                }
+            }
+        }
         
         if (self.checkValidPhoneNumber(self.phoneNumber)) {
             print("valid phone number")
