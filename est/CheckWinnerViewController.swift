@@ -390,21 +390,22 @@ extension CheckWinnerViewController: SendButtonTableViewCellDelegate {
     // MARK: - estpopupalertview
     
     func showPopupAlertView(message: String) {
-        self.popupAlertView = EstPopupAlertView(frame: CGRectZero)
-        self.popupAlertView?.initMessage(message)
-        self.popupAlertView?.layer.zPosition = 1000
-        self.popupAlertView?.alpha = 0.0
-        
-        self.view.addSubview(self.popupAlertView!)
-        
-        UIView.animateWithDuration(0.2,
-            animations: {
-                self.popupAlertView?.alpha = 0.0
-                self.popupAlertView?.alpha = 1.0
-            }, completion: { finished in
-                NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(3.0), target: self, selector: #selector(SendCodeTableViewController.removePopupAlertView), userInfo: nil, repeats: false)
-        })
-        
+        if (self.popupAlertView == nil) {
+            self.popupAlertView = EstPopupAlertView(frame: CGRectZero)
+            self.popupAlertView?.initMessage(message)
+            self.popupAlertView?.layer.zPosition = 1000
+            self.popupAlertView?.alpha = 0.0
+            
+            self.view.addSubview(self.popupAlertView!)
+            
+            UIView.animateWithDuration(0.2,
+                animations: {
+                    self.popupAlertView?.alpha = 0.0
+                    self.popupAlertView?.alpha = 1.0
+                }, completion: { finished in
+                    NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(3.0), target: self, selector: #selector(SendCodeTableViewController.removePopupAlertView), userInfo: nil, repeats: false)
+            })
+        }
     }
     
     func removePopupAlertView() {
