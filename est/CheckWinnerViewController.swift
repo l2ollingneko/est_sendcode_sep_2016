@@ -150,7 +150,11 @@ class CheckWinnerViewController: EstTableViewController {
                 let cell = tableView.dequeueReusableCellWithIdentifier("announceCell", forIndexPath: indexPath) as! AnnounceTableViewCell
                 // cell.initCell()
                 if (self.status.count > 0) {
-                    cell.initCell(self.dateText[indexPath.row - 3], type: 1)
+                    if (self.status[indexPath.row - 3] == "true") {
+                        cell.initCell(self.dateText[indexPath.row - 3], type: 0)
+                    } else {
+                        cell.initCell(self.dateText[indexPath.row - 3], type: 1)
+                    }
                     /*
                     if (self.status[indexPath.row - 3] == "true") {
                         if (self.currentIndex - 1 > indexPath.row - 3) {
