@@ -12,6 +12,8 @@ class PhoneNumberTableViewCell: UITableViewCell {
     
     var backgroundImageView = UIImageView()
     var textField = UITextField()
+    
+    var checkMarkImageView = UIImageView()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +34,11 @@ class PhoneNumberTableViewCell: UITableViewCell {
         self.backgroundImageView.image = UIImage(named: "phonenumber_full_cell")
         self.contentView.addSubview(self.backgroundImageView)
         
+        self.checkMarkImageView.frame = CGRectMake(Est.calculatedWidthFromRatio(1060.0), Est.calculatedHeightFromRatio(1118.0), Est.calculatedWidthFromRatio(47.0), Est.calculatedHeightFromRatio(35.0))
+        self.checkMarkImageView.image = UIImage(named: "checkmark")
+        
+        self.contentView.addSubview(self.checkMarkImageView)
+        
         self.textField.frame = Est.calculatedRectFromRatio(211.0, y: 1084.0, w: 820, h: 100.0)
         self.textField.placeholder = "กรอกเบอร์โทรศัพท์มือถือ"
         self.textField.textAlignment = .Center
@@ -44,6 +51,11 @@ class PhoneNumberTableViewCell: UITableViewCell {
         self.backgroundImageView.frame = CGRectMake(0.0, 0.0, Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(1144.0))
         self.backgroundImageView.image = UIImage(named: "check_winner_phone_cell")
         self.contentView.addSubview(self.backgroundImageView)
+        
+        self.checkMarkImageView.frame = CGRectMake(Est.calculatedWidthFromRatio(1060.0), Est.calculatedHeightFromRatio(1037.0), Est.calculatedWidthFromRatio(47.0), Est.calculatedHeightFromRatio(35.0))
+        self.checkMarkImageView.image = UIImage(named: "checkmark")
+        
+        self.contentView.addSubview(self.checkMarkImageView)
         
         self.textField.frame = Est.calculatedRectFromRatio(211.0, y: 1003.0, w: 820, h: 100.0)
         self.textField.placeholder = "กรอกเบอร์โทรศัพท์มือถือ"

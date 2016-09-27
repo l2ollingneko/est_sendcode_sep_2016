@@ -13,6 +13,10 @@ class EstTableViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var navBar: EstNavigationBar = EstNavigationBar()
     var tableView: UITableView = UITableView()
+    
+    // var activeTextField: UITextField?
+    
+    var tapRecognizer: UITapGestureRecognizer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +36,10 @@ class EstTableViewController: UIViewController, UITableViewDataSource, UITableVi
         self.tableView.keyboardDismissMode = .OnDrag
         
         self.navBar.delegate = self
+        
+        self.tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(EstTableViewController.dismissKeyboard))
+        self.tapRecognizer?.numberOfTapsRequired = 1
+        self.tableView.addGestureRecognizer(self.tapRecognizer!)
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,6 +88,10 @@ class EstTableViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func notiDidTap() {
         ControllerManager.sharedInstance.presentCheckWinner()
+    }
+    
+    func dismissKeyboard() {
+        self.view.endEditing(true)
     }
 
     // MARK: - check phone number

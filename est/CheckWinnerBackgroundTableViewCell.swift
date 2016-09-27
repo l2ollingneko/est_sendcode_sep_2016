@@ -11,6 +11,8 @@ import UIKit
 class CheckWinnerBackgroundTableViewCell: UITableViewCell {
     
     var announceImageView = UIImageView()
+    
+    var estColaImageView = UIImageView()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,6 +49,11 @@ class CheckWinnerBackgroundTableViewCell: UITableViewCell {
         self.announceImageView.contentMode = .ScaleToFill
         
         self.contentView.addSubview(self.announceImageView)
+        
+        self.estColaImageView.frame = CGRectMake(0.0, Est.calculatedHeightFromRatio(3100.0), Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(394.0))
+        self.estColaImageView.image = UIImage(named: "est_cola")
+        self.estColaImageView.layer.zPosition = 1000
+        self.contentView.addSubview(self.estColaImageView)
     }
     
 }

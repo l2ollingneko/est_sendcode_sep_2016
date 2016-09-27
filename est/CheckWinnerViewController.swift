@@ -11,7 +11,11 @@ import UIKit
 class CheckWinnerViewController: EstTableViewController {
     
     var backgroundTableView = UITableView()
+    
     var activeTextField: UITextField?
+    var phoneNumberCell: PhoneNumberTableViewCell?
+    var sendButtonCell: SendButtonTableViewCell?
+    var popupAlertView: EstPopupAlertView?
     
     var phoneNumber: String = ""
     var sendable: Bool = false
@@ -23,6 +27,7 @@ class CheckWinnerViewController: EstTableViewController {
     var winners = [String]()
     var dateText = [String]()
     var status = [String]()
+    var url = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,10 +62,17 @@ class CheckWinnerViewController: EstTableViewController {
         
         self.view.addSubview(self.backgroundTableView)
         self.view.sendSubviewToBack(self.backgroundTableView)
+        
+        self.tableView.removeGestureRecognizer(self.tapRecognizer!)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if (Est.sharedInstance.badgeCounter > 0) {
+            DataManager.sharedInstance.setObjectForKey(Est.sharedInstance.badgeCounter, key: "current_badge")
+            self.getAnnounceRound()
+        }
         
         self.getWinnerAnnounce()
         
@@ -70,7 +82,10 @@ class CheckWinnerViewController: EstTableViewController {
             if (self.checkValidPhoneNumber(phoneNumber)) {
                 self.phoneNumber = phoneNumber
                 self.tableView.reloadData()
+                self.sendable = true
             }
+        } else {
+            self.sendable = false
         }
         
         // MARK: - googleanalytics
@@ -107,11 +122,20 @@ class CheckWinnerViewController: EstTableViewController {
                 cell.textField.delegate = self
                 cell.textField.text = self.phoneNumber
                 self.activeTextField = cell.textField
+                self.phoneNumberCell = cell
                 return cell
             } else if (indexPath.row == 1) {
                 let cell = tableView.dequeueReusableCellWithIdentifier("sendButtonCell", forIndexPath: indexPath) as! SendButtonTableViewCell
                 cell.initCell(true)
                 cell.delegate = self
+                
+                if (self.sendable) {
+                    cell.sendButton.enabled = true
+                } else {
+                    cell.sendButton.enabled = false
+                }
+                
+                self.sendButtonCell = cell
                 return cell
             } else if (indexPath.row == 2 || indexPath.row == 7) {
                 let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
@@ -142,11 +166,23 @@ class CheckWinnerViewController: EstTableViewController {
             }
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("backgroundCell", forIndexPath: indexPath) as! CheckWinnerBackgroundTableViewCell
-            print("currentIndex: --------")
-            print(self.currentIndex)
             cell.initCell(self.currentIndex)
             return cell
         }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if (tableView.isEqual(self.tableView)) {
+            if (indexPath.row >= 3 && indexPath.row <= 6) {
+                print("check a, url.count: \(indexPath.row - 2) \(self.url.count)")
+                if (indexPath.row - 2 <= self.url.count) {
+                    if let requestUrl = NSURL(string: self.url[indexPath.row - 3]) {
+                        UIApplication.sharedApplication().openURL(requestUrl)
+                    }
+                }
+            }
+        }
+        
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -197,6 +233,7 @@ class CheckWinnerViewController: EstTableViewController {
                 self.winners.removeAll()
                 self.dateText.removeAll()
                 self.status.removeAll()
+                self.url.removeAll()
                 self.currentIndex = 1
                 for (index, json) in jsons!.enumerate() {
                     print("index: \(index)")
@@ -214,6 +251,9 @@ class CheckWinnerViewController: EstTableViewController {
                             self.currentIndex = index + 2
                         }
                     }
+                    if let url = json["url"].string where url != "" {
+                        self.url.append(url)
+                    }
                 }
                 self.tableView.reloadData()
                 self.backgroundTableView.reloadData()
@@ -221,12 +261,37 @@ class CheckWinnerViewController: EstTableViewController {
         })
     }
     
+    func getAnnounceRound() {
+        EstHTTPService.sharedInstance.getAnnounceRound(Callback() { (round, success, errorString, error) in
+            if (success) {
+                if let currentBadge = DataManager.sharedInstance.getObjectForKey("current_badge") {
+                    let badge = currentBadge as! Int
+                    print("badge: \(badge), estBadge: \(Est.sharedInstance.badgeCounter)")
+                    if (badge < Est.sharedInstance.badgeCounter) {
+                        self.navBar.badge.image = UIImage(named: "red_\(Est.sharedInstance.badgeCounter)")
+                    } else {
+                        self.navBar.badge.image = UIImage(named: "black_\(badge)")
+                    }
+                } else {
+                    DataManager.sharedInstance.setObjectForKey(0, key: "current_badge")
+                    // TODO: - show est badge counter
+                    self.navBar.badge.image = UIImage(named: "red_\(Est.sharedInstance.badgeCounter)")
+                }
+            } else {
+                
+            }
+        })
+    }
+    
     // MARK: - popup
     
-    func presentWinnerPopup() {
+    func presentWinnerPopup(round: String, code: String) {
         let popup = PopupViewController(nibName: "PopupViewController", bundle: nil)
         popup.modalPresentationStyle = .OverCurrentContext
         popup.initPopup(3)
+        popup.roundDateImageView.image = UIImage(named: "winner_round_\(round)")
+        popup.codeLabel.text = code
+        popup.roundLabel.text = round
         self.definesPresentationContext = true
         self.presentViewController(popup, animated: false, completion: nil)
     }
@@ -246,6 +311,19 @@ class CheckWinnerViewController: EstTableViewController {
         popup.initPopup(1)
         self.definesPresentationContext = true
         self.presentViewController(popup, animated: false, completion: nil)
+    }
+    
+    override func menuDidTap() {
+        let menu = MenuTableViewController(nibName: "MenuTableViewController", bundle: nil)
+        menu.modalPresentationStyle = .OverCurrentContext
+        menu.currentIndex = 4
+        self.definesPresentationContext = true
+        self.presentViewController(menu, animated: false, completion: nil)
+        
+        self.activeTextField?.resignFirstResponder()
+        
+        // MARK: - googleanalytics
+        AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Click_menu")
     }
 
     /*
@@ -281,7 +359,9 @@ extension CheckWinnerViewController: SendButtonTableViewCellDelegate {
                     print("success")
                     if (string == "winner") {
                         // MARK: - popup winner
-                        self.presentWinnerPopup()
+                        let round = json!["round"].string
+                        let code = json!["code"].string
+                        self.presentWinnerPopup(round!, code: code!)
                     } else if (string == "notwinner") {
                         // MARK: - popup notwinner
                         let prizeCount = json!["detail"].string
@@ -299,26 +379,37 @@ extension CheckWinnerViewController: SendButtonTableViewCellDelegate {
             print("invalid phone number")
         }
         
-        /*
-        if let phoneNumberData = DataManager.sharedInstance.getObjectForKey("phone_number") {
-            EstHTTPService.sharedInstance.checkWinner(phoneNumberData as! String, cb: Callback() { (json, success, string, error) in
-                if (success) {
-                    if (string == "winner") {
-                        // MARK: - popup winner
-                        self.presentWinnerPopup()
-                    } else if (string == "notwinner") {
-                        // MARK: - popup notwinner
-                        self.presentLoserPopup()
-                    } else {
-                        // MARK: - soon
-                        self.presentSoonPopup()
-                    }
-                } else {
-                    // MARK: - popup error
-                }
-            })
-        }
-         */
+    }
+    
+    // MARK: - estpopupalertview
+    
+    func showPopupAlertView(message: String) {
+        self.popupAlertView = EstPopupAlertView(frame: CGRectZero)
+        self.popupAlertView?.initMessage(message)
+        self.popupAlertView?.layer.zPosition = 1000
+        self.popupAlertView?.alpha = 0.0
+        
+        self.view.addSubview(self.popupAlertView!)
+        
+        UIView.animateWithDuration(0.2,
+            animations: {
+                self.popupAlertView?.alpha = 0.0
+                self.popupAlertView?.alpha = 1.0
+            }, completion: { finished in
+                NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(3.0), target: self, selector: #selector(SendCodeTableViewController.removePopupAlertView), userInfo: nil, repeats: false)
+        })
+        
+    }
+    
+    func removePopupAlertView() {
+        UIView.animateWithDuration(0.2,
+            animations: {
+                self.popupAlertView?.alpha = 1.0
+                self.popupAlertView?.alpha = 0.0
+            }, completion: { finished in
+                self.popupAlertView?.removeFromSuperview()
+                self.popupAlertView = nil
+        })
     }
     
 }
@@ -326,17 +417,40 @@ extension CheckWinnerViewController: SendButtonTableViewCellDelegate {
 extension CheckWinnerViewController: UITextFieldDelegate {
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        let invalidCharacters = NSCharacterSet(charactersInString: "0123456789").invertedSet
         let newLength = textField.text!.utf16.count + string.utf16.count - range.length
-        return newLength <= 10
+        return (string.rangeOfCharacterFromSet(invalidCharacters, options: [], range: string.startIndex ..< string.endIndex) == nil) && (newLength <= 10)
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        self.activeTextField = textField
+        self.tableView.addGestureRecognizer(self.tapRecognizer!)
+        if (self.sendable) {
+            self.phoneNumber = textField.text!
+            self.sendable = false
+            self.sendButtonCell?.sendButton.enabled = false
+            self.phoneNumberCell?.checkMarkImageView.hidden = true
+        }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
+        self.tableView.removeGestureRecognizer(self.tapRecognizer!)
         if (self.checkValidPhoneNumber(textField.text!)) {
             print("valid phone number")
+            self.phoneNumber = textField.text!
             DataManager.sharedInstance.setObjectForKey(textField.text!, key: "phone_number")
+            // TODO: - show check mark & enable button
+            self.sendable = true
+            self.phoneNumberCell?.checkMarkImageView.hidden = false
         } else {
             print("invalid phone number")
+            // TODO: - unable button
+            self.phoneNumber = textField.text!
+            self.sendable = false
+            self.showPopupAlertView("เบอร์โทรศัพท์มือถือไม่ถูกต้อง")
+            self.phoneNumberCell?.checkMarkImageView.hidden = true
         }
+        self.tableView.reloadData()
     }
     
 }

@@ -70,8 +70,11 @@ class ControllerManager {
             case .Tvc:
                 value = DataManager.sharedInstance.getObjectForKey("page_tvc") as! String
         }
+        
         let webView =  WebviewViewController(nibName: "WebviewViewController", bundle: nil)
+        webView.type = page
         webView.presentWebView(value)
+        
         return webView
     }
     

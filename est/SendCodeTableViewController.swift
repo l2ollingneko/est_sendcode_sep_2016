@@ -16,8 +16,12 @@ class SendCodeTableViewController: EstTableViewController {
     var reachability: Reachability?
     
     var activeTextField: UITextField?
+    var phoneNumberCell: PhoneNumberTableViewCell?
     var sendButtonCell: SendButtonTableViewCell?
+    var loadingIndicator = EstLoadingView(frame: CGRectZero)
     
+    var popupAlertView: EstPopupAlertView?
+
     // MARK: - model data for sendcode
     
     var sendable = false
@@ -71,6 +75,10 @@ class SendCodeTableViewController: EstTableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if (Est.sharedInstance.badgeCounter > 0) {
+            self.getAnnounceRound()
+        }
         
         // MARK: - get phone number from userdefault
         
@@ -147,6 +155,7 @@ class SendCodeTableViewController: EstTableViewController {
                 cell.textField.delegate = self
                 cell.textField.tag = 99
                 cell.textField.text = self.phoneNumber
+                self.phoneNumberCell = cell
                 return cell
             } else if (indexPath.row == 1) {
                 let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
@@ -158,11 +167,19 @@ class SendCodeTableViewController: EstTableViewController {
                 cell.initCell()
                 cell.delegate = self
                 self.sendButtonCell = cell
+                
                 if (self.error) {
                     cell.errorImageView.hidden = false
                 } else {
                     cell.errorImageView.hidden = true
                 }
+                
+                if (self.sendable) {
+                    cell.sendButton.enabled = true
+                } else {
+                    cell.sendButton.enabled = false
+                }
+                
                 return cell
             } else if (indexPath.row == 13) {
                 let cell = tableView.dequeueReusableCellWithIdentifier("noticeCell", forIndexPath: indexPath) as! NoticeTableViewCell
@@ -186,14 +203,12 @@ class SendCodeTableViewController: EstTableViewController {
                     }
                 }
                 
-                if (indexPath.row - 1 > self.dailyQuota || self.dailyQuota == 0) {
+                if (indexPath.row - 1 > self.dailyQuota || self.dailyQuota == 0 || self.sendable == false) {
                     cell.initCell(indexPath.row - 1, type: 1)
                 }
                 
                 if (self.codes[cell.textField.tag] != nil && self.codes[cell.textField.tag] != "")   {
                     cell.textField.text = self.codes[cell.textField.tag]
-                    print(cell.textField.text)
-                    print(cell.textField.text?.characters.count)
                 } else {
                     cell.textField.text = nil
                 }
@@ -263,9 +278,23 @@ class SendCodeTableViewController: EstTableViewController {
             // TODO: - get daily quota -> calculate dailyquota -> set sendable
             self.checkDailyQuota()
             
+            self.getAnnounceRound()
         } else {
             print("Network not reachable")
+            self.sendable = false
+            self.tableView.reloadData()
         }
+    }
+    
+    override func menuDidTap() {
+        let menu = MenuTableViewController(nibName: "MenuTableViewController", bundle: nil)
+        menu.modalPresentationStyle = .OverCurrentContext
+        menu.currentIndex = 0
+        self.definesPresentationContext = true
+        self.presentViewController(menu, animated: false, completion: nil)
+        
+        // MARK: - googleanalytics
+        AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Click_menu")
     }
     
     func checkValidPhoneNumber(phoneNumber: String) -> Bool {
@@ -295,6 +324,28 @@ class SendCodeTableViewController: EstTableViewController {
         }
     }
     
+    func getAnnounceRound() {
+        EstHTTPService.sharedInstance.getAnnounceRound(Callback() { (round, success, errorString, error) in
+            if (success) {
+                if let currentBadge = DataManager.sharedInstance.getObjectForKey("current_badge") {
+                    let badge = currentBadge as! Int
+                    print("badge: \(badge), estBadge: \(Est.sharedInstance.badgeCounter)")
+                    if (badge < Est.sharedInstance.badgeCounter) {
+                        self.navBar.badge.image = UIImage(named: "red_\(Est.sharedInstance.badgeCounter)")
+                    } else {
+                        self.navBar.badge.image = UIImage(named: "black_\(badge)")
+                    }
+                } else {
+                    DataManager.sharedInstance.setObjectForKey(0, key: "current_badge")
+                    // TODO: - show est badge counter
+                    self.navBar.badge.image = UIImage(named: "red_\(Est.sharedInstance.badgeCounter)")
+                }
+            } else {
+                
+            }
+        })
+    }
+    
     // MARK: - popup
     
     func presentThankyouPopup() {
@@ -310,12 +361,12 @@ class SendCodeTableViewController: EstTableViewController {
 extension SendCodeTableViewController: UITextFieldDelegate  {
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        let invalidCharacters = NSCharacterSet(charactersInString: "0123456789").invertedSet
+        let newLength = textField.text!.utf16.count + string.utf16.count - range.length
         if (textField.tag == 99) {
-            let newLength = textField.text!.utf16.count + string.utf16.count - range.length
-            return newLength <= 10
+            return (string.rangeOfCharacterFromSet(invalidCharacters, options: [], range: string.startIndex ..< string.endIndex) == nil) && (newLength <= 10)
         } else {
-            let newLength = textField.text!.utf16.count + string.utf16.count - range.length
-            return newLength <= 11
+            return (string.rangeOfCharacterFromSet(invalidCharacters, options: [], range: string.startIndex ..< string.endIndex) == nil) && (newLength <= 11)
         }
     }
     
@@ -325,9 +376,16 @@ extension SendCodeTableViewController: UITextFieldDelegate  {
                 print("valid phone number")
                 DataManager.sharedInstance.setObjectForKey(textField.text!, key: "phone_number")
                 self.phoneNumber = textField.text!
+                self.sendable = true
+                self.phoneNumberCell?.checkMarkImageView.hidden = false
             } else {
                 print("invalid phone number")
+                self.sendable = false
+                self.phoneNumber = textField.text!
+                self.showPopupAlertView("เบอร์โทรศัพท์มือถือไม่ถูกต้อง")
+                self.phoneNumberCell?.checkMarkImageView.hidden = true
             }
+            self.tableView.reloadData()
         } else {
             self.codes[textField.tag] = textField.text
             self.sendable_codes.removeValueForKey(textField.tag)
@@ -337,12 +395,49 @@ extension SendCodeTableViewController: UITextFieldDelegate  {
     
     func textFieldDidBeginEditing(textField: UITextField) {
         self.activeTextField = textField
+        if (textField.tag == 99) {
+            self.phoneNumber = textField.text!
+            self.sendable = false
+            self.sendButtonCell?.sendButton.enabled = false
+            self.phoneNumberCell?.checkMarkImageView.hidden = true
+        }
         print("textfield : \(textField.tag)")
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.activeTextField?.resignFirstResponder()
         return true
+    }
+    
+    // MARK: - estpopupalertview
+    
+    func showPopupAlertView(message: String) {
+        self.popupAlertView = EstPopupAlertView(frame: CGRectZero)
+        self.popupAlertView?.initMessage(message)
+        self.popupAlertView?.layer.zPosition = 1000
+        self.popupAlertView?.alpha = 0.0
+        
+        self.view.addSubview(self.popupAlertView!)
+        
+        UIView.animateWithDuration(0.2,
+            animations: {
+                self.popupAlertView?.alpha = 0.0
+                self.popupAlertView?.alpha = 1.0
+            }, completion: { finished in
+                NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(3.0), target: self, selector: #selector(SendCodeTableViewController.removePopupAlertView), userInfo: nil, repeats: false)
+        })
+        
+    }
+    
+    func removePopupAlertView() {
+        UIView.animateWithDuration(0.2,
+            animations: {
+                self.popupAlertView?.alpha = 1.0
+                self.popupAlertView?.alpha = 0.0
+            }, completion: { finished in
+                self.popupAlertView?.removeFromSuperview()
+                self.popupAlertView = nil
+        })
     }
     
 }
@@ -353,10 +448,22 @@ extension SendCodeTableViewController: SendButtonTableViewCellDelegate {
         
         // MARK: - googleanalytics
         AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Click_submitCode")
+        EstHTTPService.sharedInstance.sendCode()
         
         if (!self.sendable) {
             // TODO: - show error popup ( phone number )
             return
+        }
+        
+        if (self.activeTextField != nil) {
+            if (self.activeTextField!.tag == 99) {
+                if (self.activeTextField?.text != nil && self.activeTextField!.text?.characters.count == 10) {
+                    if (self.checkValidPhoneNumber(self.activeTextField!.text!)) {
+                        DataManager.sharedInstance.setObjectForKey(self.activeTextField!.text!, key: "phone_number")
+                        self.phoneNumber = self.activeTextField!.text!
+                    }
+                }
+            }
         }
         
         var codes = [String]()
@@ -444,6 +551,7 @@ extension SendCodeTableViewController: SendButtonTableViewCellDelegate {
 
     func sendCodes(codes: [String]) {
         if let phoneNumberData = DataManager.sharedInstance.getObjectForKey("phone_number") {
+            self.view.addSubview(self.loadingIndicator)
             EstHTTPService.sharedInstance.sendCode(phoneNumberData as! String, codes: codes, cb: Callback() { (responseCodes, success, errorString, error) in
                 if (success) {
                     var validation: Bool = true
@@ -487,11 +595,13 @@ extension SendCodeTableViewController: SendButtonTableViewCellDelegate {
                             }
                         }
                     }
+                    
                     self.checkDailyQuota()
                     self.tableView.reloadData()
                 } else {
                     // TODO: - show error
                 }
+                self.loadingIndicator.removeFromSuperview()
             })
         }
     }

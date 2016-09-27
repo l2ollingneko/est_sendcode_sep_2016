@@ -114,6 +114,7 @@ class EstHTTPService {
         Alamofire.request(.GET, url).responseJSON { response in
             if let data: AnyObject = response.result.value {
                 let json = JSON(data)
+                print(json)
                 var jsons = [JSON]()
                 for j in json["data"].array! {
                     jsons.append(j)
@@ -169,6 +170,70 @@ class EstHTTPService {
                 cb.callback(nil, false, nil, nil)
             }
         }
+    }
+    
+    func getAnnounceRound(cb: Callback<Int>) {
+        let url = self.BASE_API_URL + "mobileapp_alertData.aspx"
+        
+        Alamofire.request(.GET, url).responseJSON { response in
+            if let data: AnyObject = response.result.value {
+                let json = JSON(data)
+                print(json)
+                if let result = json["result"].string where result == "complete" {
+                    if let round = json["detail"].string {
+                        Est.sharedInstance.badgeCounter = Int(round)!
+                        print("round: \(Est.sharedInstance.badgeCounter)")
+                        cb.callback(Int(round), true, nil, nil)
+                    } else {
+                        cb.callback(nil, false, nil, nil)
+                    }
+                } else {
+                    cb.callback(nil, false, nil, nil)
+                }
+            } else {
+                cb.callback(nil, false, nil, response.result.error)
+            }
+        }
+        
+    }
+    
+    // MARK: - stat
+    
+    func openApp() {
+        var url: String = "http://www.estcolathai.com/promotion/api/mobile/applicationstatlog.aspx"
+        if let api_stat = DataManager.sharedInstance.getObjectForKey("api_stat") as? String {
+            url = api_stat
+        }
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["stat"] = "estcolapromo"
+        parameters["param1"] = "ios"
+        parameters["param2"] = "openapp"
+        Alamofire.request(.GET, url, parameters: parameters)
+    }
+    
+    func sendCode() {
+        var url: String = "http://www.estcolathai.com/promotion/api/mobile/applicationstatlog.aspx"
+        if let api_stat = DataManager.sharedInstance.getObjectForKey("api_stat") as? String {
+            url = api_stat
+        }
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["stat"] = "estcolapromo"
+        parameters["param1"] = "ios"
+        parameters["param2"] = "startsendcode"
+        Alamofire.request(.GET, url, parameters: parameters)
+    }
+    
+    func saveFBShareForWinner() {
+        var url: String = "http://www.estcolathai.com/promotion/api/mobile/applicationstatlog.aspx"
+        if let api_stat = DataManager.sharedInstance.getObjectForKey("api_stat") as? String {
+            url = api_stat
+        }
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["stat"] = "estcolapromo"
+        parameters["param1"] = "ios"
+        parameters["param2"] = "shareFBWinner"
+        parameters["param3"] = DataManager.sharedInstance.getObjectForKey("phone_number")
+        Alamofire.request(.GET, url, parameters: parameters)
     }
     
 }

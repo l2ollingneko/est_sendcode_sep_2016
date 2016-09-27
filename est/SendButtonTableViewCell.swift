@@ -37,6 +37,9 @@ class SendButtonTableViewCell: UITableViewCell {
     func initCell() {
         self.sendButton.frame = CGRectMake(0.0, Est.calculatedHeightFromRatio(74.0), Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(210.0))
         self.sendButton.setImage(UIImage(named: "send_button"), forState: UIControlState.Normal)
+        self.sendButton.setImage(UIImage(named: "send_button_disabled"), forState: .Disabled)
+        
+        self.sendButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
         
         self.sendButton.addTarget(self, action: #selector(SendButtonTableViewCell.send), forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -51,7 +54,8 @@ class SendButtonTableViewCell: UITableViewCell {
     
     func initCell(checkWinner: Bool) {
         self.sendButton.frame = CGRectMake(0.0, Est.calculatedHeightFromRatio(46.0), Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(210.0))
-        self.sendButton.setImage(UIImage(named: "check_winner_button"), forState: UIControlState.Normal)
+        self.sendButton.setImage(UIImage(named: "check_winner_button"), forState: .Normal)
+        self.sendButton.setImage(UIImage(named: "check_winner_button_disabled"), forState: .Disabled)
         
         self.sendButton.addTarget(self, action: #selector(SendButtonTableViewCell.check), forControlEvents: UIControlEvents.TouchUpInside)
         

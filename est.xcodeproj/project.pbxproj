@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5BDCF3F25780BCA7D61A5BEC /* Pods_est.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0CEEF9E875728FF09E7269 /* Pods_est.framework */; };
+		A21710651D9AE51C00FFE705 /* EstPopupAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21710641D9AE51C00FFE705 /* EstPopupAlertView.swift */; };
+		A21710681D9AFB5600FFE705 /* EstLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21710671D9AFB5600FFE705 /* EstLoadingView.swift */; };
 		A299E8911D9047F100114E76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299E8901D9047F100114E76 /* AppDelegate.swift */; };
 		A299E8981D9047F100114E76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A299E8971D9047F100114E76 /* Assets.xcassets */; };
 		A299E8A71D904B1300114E76 /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299E8A61D904B1300114E76 /* Callback.swift */; };
@@ -63,6 +65,8 @@
 
 /* Begin PBXFileReference section */
 		0E0CEEF9E875728FF09E7269 /* Pods_est.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_est.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A21710641D9AE51C00FFE705 /* EstPopupAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstPopupAlertView.swift; sourceTree = "<group>"; };
+		A21710671D9AFB5600FFE705 /* EstLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstLoadingView.swift; sourceTree = "<group>"; };
 		A299E88D1D9047F100114E76 /* est.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = est.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A299E8901D9047F100114E76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A299E8971D9047F100114E76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -154,6 +158,22 @@
 				E6A3B946C2725264EE3C61EE /* Pods-est.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A21710631D9AE50200FFE705 /* alertview */ = {
+			isa = PBXGroup;
+			children = (
+				A21710641D9AE51C00FFE705 /* EstPopupAlertView.swift */,
+			);
+			name = alertview;
+			sourceTree = "<group>";
+		};
+		A21710661D9AFB4800FFE705 /* loadingview */ = {
+			isa = PBXGroup;
+			children = (
+				A21710671D9AFB5600FFE705 /* EstLoadingView.swift */,
+			);
+			name = loadingview;
 			sourceTree = "<group>";
 		};
 		A299E8841D9047F100114E76 = {
@@ -326,6 +346,8 @@
 		A2E997C31D911F7900C5FF3B /* components */ = {
 			isa = PBXGroup;
 			children = (
+				A21710661D9AFB4800FFE705 /* loadingview */,
+				A21710631D9AE50200FFE705 /* alertview */,
 				A2E997DF1D9156DD00C5FF3B /* tableviewcontroller */,
 				A2E997DA1D91353000C5FF3B /* popup */,
 				A2E997CF1D91208600C5FF3B /* navigationbar */,
@@ -573,8 +595,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2E997D31D9120F500C5FF3B /* Est.swift in Sources */,
+				A21710651D9AE51C00FFE705 /* EstPopupAlertView.swift in Sources */,
 				A2D6065E1D99411300CD2650 /* AnnounceTableViewCell.swift in Sources */,
 				A2E9982A1D95A52300C5FF3B /* SendButtonTableViewCell.swift in Sources */,
+				A21710681D9AFB5600FFE705 /* EstLoadingView.swift in Sources */,
 				A2E997CE1D91202D00C5FF3B /* EstHTTPService.swift in Sources */,
 				A2D606551D974BFD00CD2650 /* CheckWinnerViewController.swift in Sources */,
 				A299E8A71D904B1300114E76 /* Callback.swift in Sources */,

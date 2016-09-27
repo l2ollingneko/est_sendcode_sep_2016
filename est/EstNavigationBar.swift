@@ -24,6 +24,8 @@ class EstNavigationBar: UIView {
     var notiButton = UIButton()
     var notiImageView = UIImageView()
     
+    var badge = UIImageView()
+    
     var delegate: EstNavigationBarDelegate?
     
     override init(frame: CGRect) {
@@ -38,6 +40,8 @@ class EstNavigationBar: UIView {
         self.backgroundImageView.frame = self.frame
         self.backgroundImageView.image = UIImage(named: "navbar")
         
+        self.badge.frame = Est.calculatedRectFromRatio(1148.0, y: 34.0, w: 67.0, h: 68.0)
+        
         self.menuButton.frame = CGRectMake(0.0, 0.0, Est.calculatedWidthFromRatio(168.0), Est.calculatedHeightFromRatio(168.0))
         self.menuButton.addTarget(self, action: #selector(EstNavigationBar.menu(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -47,6 +51,7 @@ class EstNavigationBar: UIView {
         self.addSubview(self.backgroundImageView)
         self.addSubview(self.menuButton)
         self.addSubview(self.notiButton)
+        self.addSubview(self.badge)
     }
     
     init(custom: Bool) {
@@ -58,6 +63,8 @@ class EstNavigationBar: UIView {
         self.backgroundColor = UIColor.clearColor()
         self.backgroundImageView.backgroundColor = UIColor.clearColor()
         
+        self.badge.frame = Est.calculatedRectFromRatio(1148.0, y: 34.0, w: 67.0, h: 68.0)
+        
         self.menuButton.frame = CGRectMake(0.0, 0.0, Est.calculatedWidthFromRatio(174.0), Est.calculatedHeightFromRatio(174.0))
         self.menuButton.addTarget(self, action: #selector(EstNavigationBar.menu(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -67,6 +74,7 @@ class EstNavigationBar: UIView {
         self.addSubview(self.backgroundImageView)
         self.addSubview(self.menuButton)
         self.addSubview(self.notiButton)
+        self.addSubview(self.badge)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -74,12 +82,12 @@ class EstNavigationBar: UIView {
     }
     
     func menu(button: UIButton) {
-        print("menuDidTap()")
+        AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Click_menu")
         self.delegate?.menuDidTap()
     }
     
     func noti(button: UIButton) {
-        print("notiDidTap()")
+        AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "BT_announce")
         self.delegate?.notiDidTap()
     }
     

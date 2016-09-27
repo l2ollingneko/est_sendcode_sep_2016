@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         ControllerManager.sharedInstance.presentSendCode()
+        EstHTTPService.sharedInstance.openApp()
         
         // MARK: - push noti
         
