@@ -10,7 +10,7 @@ import UIKit
 
 class EstPopupAlertView: UIView {
     
-    let size = CGSizeMake(Est.calculatedWidthFromRatio(700.0), Est.calculatedHeightFromRatio(200.0))
+    let size = CGSizeMake(Est.calculatedWidthFromRatio(850.0), Est.calculatedHeightFromRatio(200.0))
     
     var messageLabel = UILabel()
     

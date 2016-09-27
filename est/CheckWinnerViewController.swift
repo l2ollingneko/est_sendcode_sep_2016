@@ -341,6 +341,12 @@ class CheckWinnerViewController: EstTableViewController {
 extension CheckWinnerViewController: SendButtonTableViewCellDelegate {
 
     func checkButtonDidTap() {
+        
+        if (!Reachability.isConnectedToNetwork()) {
+            self.showPopupAlertView("กรุณาตรวจสอบสัญญาณอินเทอร์เน็ต")
+            return
+        }
+        
         // MARK: - googleanalytics
         AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Click_check")
         

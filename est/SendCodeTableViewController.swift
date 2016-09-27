@@ -7,13 +7,10 @@
 //
 
 import UIKit
-import ReachabilitySwift
 
 class SendCodeTableViewController: EstTableViewController {
     
     var backgroundTableView = UITableView()
-    
-    var reachability: Reachability?
     
     var activeTextField: UITextField?
     var phoneNumberCell: PhoneNumberTableViewCell?
@@ -70,7 +67,7 @@ class SendCodeTableViewController: EstTableViewController {
         self.view.addSubview(self.backgroundTableView)
         self.view.sendSubviewToBack(self.backgroundTableView)
         
-        self.setupReachability()
+        // self.setupReachability()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -79,6 +76,14 @@ class SendCodeTableViewController: EstTableViewController {
         if (Est.sharedInstance.badgeCounter > 0) {
             self.getAnnounceRound()
         }
+        
+        EstHTTPService.sharedInstance.getDataInfo(Callback() { (result, success, errorString, error) in
+            if (success) {
+            }
+        })
+        
+        // TODO: - get daily quota -> calculate dailyquota -> set sendable
+        self.checkDailyQuota()
         
         // MARK: - get phone number from userdefault
         
@@ -93,22 +98,12 @@ class SendCodeTableViewController: EstTableViewController {
             }
         }
         
-        // MARK: - check internet connection
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SendCodeTableViewController.reachabilityChanged(_:)),name: ReachabilityChangedNotification,object: self.reachability)
-        do {
-            try reachability!.startNotifier()
-        } catch {
-            print("could not start reachability notifier")
-        }
-    
         // MARK: - googleanalytics
         AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Page, action: .Opened, label: "estSendCode-Submit")
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: ReachabilityChangedNotification, object: self.reachability)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -249,6 +244,8 @@ class SendCodeTableViewController: EstTableViewController {
         self.backgroundTableView.contentOffset = scrollView.contentOffset
     }
     
+    /*
+    
     // MARK: - reachability
     
     func setupReachability() {
@@ -281,10 +278,12 @@ class SendCodeTableViewController: EstTableViewController {
             self.getAnnounceRound()
         } else {
             print("Network not reachable")
+            self.showPopupAlertView("กรุณาตรวจสอบสัญญาณอินเทอร์เน็ต")
             self.sendable = false
             self.tableView.reloadData()
         }
     }
+     */
     
     override func menuDidTap() {
         let menu = MenuTableViewController(nibName: "MenuTableViewController", bundle: nil)
@@ -378,6 +377,9 @@ extension SendCodeTableViewController: UITextFieldDelegate  {
                 self.phoneNumber = textField.text!
                 self.sendable = true
                 self.phoneNumberCell?.checkMarkImageView.hidden = false
+                
+                self.dailyQuota = 0
+                self.checkDailyQuota()
             } else {
                 print("invalid phone number")
                 self.sendable = false
@@ -445,6 +447,11 @@ extension SendCodeTableViewController: UITextFieldDelegate  {
 extension SendCodeTableViewController: SendButtonTableViewCellDelegate {
     
     func sendButtonDidTap() {
+        
+        if (!Reachability.isConnectedToNetwork()) {
+            self.showPopupAlertView("กรุณาตรวจสอบสัญญาณอินเทอร์เน็ต")
+            return
+        }
         
         // MARK: - googleanalytics
         AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Click_submitCode")

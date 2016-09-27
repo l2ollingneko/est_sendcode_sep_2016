@@ -10,6 +10,7 @@
 		5BDCF3F25780BCA7D61A5BEC /* Pods_est.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0CEEF9E875728FF09E7269 /* Pods_est.framework */; };
 		A21710651D9AE51C00FFE705 /* EstPopupAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21710641D9AE51C00FFE705 /* EstPopupAlertView.swift */; };
 		A21710681D9AFB5600FFE705 /* EstLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21710671D9AFB5600FFE705 /* EstLoadingView.swift */; };
+		A217106A1D9B185300FFE705 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21710691D9B185300FFE705 /* Reachability.swift */; };
 		A299E8911D9047F100114E76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299E8901D9047F100114E76 /* AppDelegate.swift */; };
 		A299E8981D9047F100114E76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A299E8971D9047F100114E76 /* Assets.xcassets */; };
 		A299E8A71D904B1300114E76 /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299E8A61D904B1300114E76 /* Callback.swift */; };
@@ -67,6 +68,7 @@
 		0E0CEEF9E875728FF09E7269 /* Pods_est.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_est.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A21710641D9AE51C00FFE705 /* EstPopupAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstPopupAlertView.swift; sourceTree = "<group>"; };
 		A21710671D9AFB5600FFE705 /* EstLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstLoadingView.swift; sourceTree = "<group>"; };
+		A21710691D9B185300FFE705 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A299E88D1D9047F100114E76 /* est.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = est.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A299E8901D9047F100114E76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A299E8971D9047F100114E76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				A299E8CA1D904F5E00114E76 /* ControllerManager.swift */,
+				A21710691D9B185300FFE705 /* Reachability.swift */,
 				A2E997DD1D91508400C5FF3B /* DataManager.swift */,
 			);
 			name = managers;
@@ -477,7 +480,7 @@
 				TargetAttributes = {
 					A299E88C1D9047F100114E76 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = FQ9R46R5K8;
+						DevelopmentTeam = 3HVSAM84K3;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -608,6 +611,7 @@
 				A2E998221D95232C00C5FF3B /* PhoneNumberTableViewCell.swift in Sources */,
 				A299E8B51D904BFC00114E76 /* ICSDrawerController.m in Sources */,
 				A2D606791D9A356A00CD2650 /* AdapterGoogleAnalytics.swift in Sources */,
+				A217106A1D9B185300FFE705 /* Reachability.swift in Sources */,
 				A2D6064F1D972FF700CD2650 /* EstWebViewPage.swift in Sources */,
 				A2D6065A1D99367800CD2650 /* CheckWinnerBackgroundTableViewCell.swift in Sources */,
 				A299E8911D9047F100114E76 /* AppDelegate.swift in Sources */,
@@ -729,7 +733,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = FQ9R46R5K8;
+				DEVELOPMENT_TEAM = 3HVSAM84K3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/est",
@@ -753,7 +757,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = FQ9R46R5K8;
+				DEVELOPMENT_TEAM = 3HVSAM84K3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/est",
