@@ -310,7 +310,7 @@ class MenuTableViewController: UIViewController, UITableViewDataSource, UITableV
                 } else {
                     DataManager.sharedInstance.setObjectForKey(0, key: "current_badge")
                     // TODO: - show est badge counter
-                    self.navbar.badge.image = UIImage(named: "red_\(Est.sharedInstance.badgeCounter)")
+                    // self.navbar.badge.image = UIImage(named: "red_\(Est.sharedInstance.badgeCounter)")
                 }
             } else {
                 

@@ -337,7 +337,7 @@ class SendCodeTableViewController: EstTableViewController {
                 } else {
                     DataManager.sharedInstance.setObjectForKey(0, key: "current_badge")
                     // TODO: - show est badge counter
-                    self.navBar.badge.image = UIImage(named: "red_\(Est.sharedInstance.badgeCounter)")
+                    // self.navBar.badge.image = UIImage(named: "red_1")
                 }
             } else {
                 

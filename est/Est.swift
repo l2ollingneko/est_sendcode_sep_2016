@@ -35,7 +35,7 @@ class Est {
     static let EST_BLACK = UIColor(hexString: "#373737")
     static let EST_YELLOW = UIColor(hexString: "#fce029")
     
-    var badgeCounter: Int = -1
+    var badgeCounter: Int = 1
     
     static let sharedInstance = Est()
     
