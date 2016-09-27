@@ -69,10 +69,8 @@ class CheckWinnerViewController: EstTableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (Est.sharedInstance.badgeCounter > 0) {
-            DataManager.sharedInstance.setObjectForKey(Est.sharedInstance.badgeCounter, key: "current_badge")
-            self.getAnnounceRound()
-        }
+        self.getAnnounceRound()
+        DataManager.sharedInstance.setObjectForKey(Est.sharedInstance.badgeCounter, key: "current_badge")
         
         self.getWinnerAnnounce()
         
@@ -123,6 +121,11 @@ class CheckWinnerViewController: EstTableViewController {
                 cell.textField.text = self.phoneNumber
                 self.activeTextField = cell.textField
                 self.phoneNumberCell = cell
+                
+                if (cell.textField.text == "" || cell.textField.text == nil) {
+                    cell.checkMarkImageView.hidden = true
+                }
+                
                 return cell
             } else if (indexPath.row == 1) {
                 let cell = tableView.dequeueReusableCellWithIdentifier("sendButtonCell", forIndexPath: indexPath) as! SendButtonTableViewCell

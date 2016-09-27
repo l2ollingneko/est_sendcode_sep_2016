@@ -281,7 +281,6 @@ class PopupViewController: UIViewController, FBSDKSharingDelegate {
         } else if (self.mode == .ShareWinner) {
             // winner
             AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Button, action: .Clicked, label: "Click_ShareSuccessWinSeat")
-            EstHTTPService.sharedInstance.saveFBShareForWinner()
             prefix = "sharewinner"
         } else if (self.mode == .ShareNotWinner) {
             // not winner
@@ -321,6 +320,9 @@ class PopupViewController: UIViewController, FBSDKSharingDelegate {
     func sharer(sharer: FBSDKSharing!, didCompleteWithResults results: [NSObject : AnyObject]!) {
         print("didCompleteWithResults")
         if let _ = results["postId"] {
+            if (self.mode == .ShareWinner) {
+                EstHTTPService.sharedInstance.saveFBShareForWinner(results["postId"] as! String)
+            }
             /*
             OtificationHTTPService.sharedInstance.saveFBShare(results["postId"] as! String)
             OtificationHTTPService.sharedInstance.shareResult()

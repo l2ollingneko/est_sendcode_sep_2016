@@ -223,7 +223,7 @@ class EstHTTPService {
         Alamofire.request(.GET, url, parameters: parameters)
     }
     
-    func saveFBShareForWinner() {
+    func saveFBShareForWinner(postId: String) {
         var url: String = "http://www.estcolathai.com/promotion/api/mobile/applicationstatlog.aspx"
         if let api_stat = DataManager.sharedInstance.getObjectForKey("api_stat") as? String {
             url = api_stat
@@ -232,7 +232,8 @@ class EstHTTPService {
         parameters["stat"] = "estcolapromo"
         parameters["param1"] = "ios"
         parameters["param2"] = "shareFBWinner"
-        parameters["param3"] = DataManager.sharedInstance.getObjectForKey("phone_number")
+        parameters["t"] = DataManager.sharedInstance.getObjectForKey("phone_number")
+        parameters["post_id"] = postId
         Alamofire.request(.GET, url, parameters: parameters)
     }
     

@@ -36,7 +36,6 @@ class PhoneNumberTableViewCell: UITableViewCell {
         
         self.checkMarkImageView.frame = CGRectMake(Est.calculatedWidthFromRatio(1060.0), Est.calculatedHeightFromRatio(1118.0), Est.calculatedWidthFromRatio(47.0), Est.calculatedHeightFromRatio(35.0))
         self.checkMarkImageView.image = UIImage(named: "checkmark")
-        self.checkMarkImageView.hidden = true
         
         self.contentView.addSubview(self.checkMarkImageView)
         
@@ -55,7 +54,6 @@ class PhoneNumberTableViewCell: UITableViewCell {
         
         self.checkMarkImageView.frame = CGRectMake(Est.calculatedWidthFromRatio(1060.0), Est.calculatedHeightFromRatio(1037.0), Est.calculatedWidthFromRatio(47.0), Est.calculatedHeightFromRatio(35.0))
         self.checkMarkImageView.image = UIImage(named: "checkmark")
-        self.checkMarkImageView.hidden = true
         
         self.contentView.addSubview(self.checkMarkImageView)
         

@@ -58,9 +58,7 @@ class MenuTableViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (Est.sharedInstance.badgeCounter > 0) {
-            self.getAnnounceRound()
-        }
+        self.getAnnounceRound()
         
         AdapterGoogleAnalytics.sharedInstance.sendGoogleAnalyticsEventTracking(.Page, action: .Opened, label: "estSendCode-Menu")
     }

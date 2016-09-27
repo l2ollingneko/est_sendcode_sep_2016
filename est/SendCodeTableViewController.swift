@@ -73,9 +73,7 @@ class SendCodeTableViewController: EstTableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (Est.sharedInstance.badgeCounter > 0) {
-            self.getAnnounceRound()
-        }
+        self.getAnnounceRound()
         
         EstHTTPService.sharedInstance.getDataInfo(Callback() { (result, success, errorString, error) in
             if (success) {
@@ -150,6 +148,11 @@ class SendCodeTableViewController: EstTableViewController {
                 cell.textField.delegate = self
                 cell.textField.tag = 99
                 cell.textField.text = self.phoneNumber
+                
+                if (cell.textField.text == "" || cell.textField.text == nil) {
+                    cell.checkMarkImageView.hidden = true
+                }
+                
                 self.phoneNumberCell = cell
                 return cell
             } else if (indexPath.row == 1) {
