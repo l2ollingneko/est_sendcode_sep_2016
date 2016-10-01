@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import WebKit
 
 class WebviewViewController: UIViewController, EstNavigationBarDelegate {
     
     var navBar: EstNavigationBar = EstNavigationBar()
-    var webView = UIWebView(frame: CGRectMake(0.0, Est.calculatedHeightFromRatio(168.0), Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(2040.0)))
+    var webView = WKWebView(frame: CGRectMake(0.0, Est.calculatedHeightFromRatio(84.0), Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(2040.0)))
     
     var type: EstWebViewPage = EstWebViewPage.Rule
     
