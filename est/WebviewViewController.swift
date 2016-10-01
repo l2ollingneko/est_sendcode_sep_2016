@@ -11,7 +11,7 @@ import UIKit
 class WebviewViewController: UIViewController, EstNavigationBarDelegate {
     
     var navBar: EstNavigationBar = EstNavigationBar()
-    var webView = UIWebView(frame: CGRectMake(0.0, Est.calculatedHeightFromRatio(168.0), Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(2208.0)))
+    var webView = UIWebView(frame: CGRectMake(0.0, Est.calculatedHeightFromRatio(168.0), Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(2040.0)))
     
     var type: EstWebViewPage = EstWebViewPage.Rule
     
@@ -29,9 +29,9 @@ class WebviewViewController: UIViewController, EstNavigationBarDelegate {
         // Do any additional setup after loading the view.
         self.navBar.delegate = self
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.clearColor()
         self.view.clipsToBounds = true
-        self.webView.backgroundColor = UIColor.whiteColor()
+        self.webView.backgroundColor = UIColor.clearColor()
         self.webView.clipsToBounds = true
         self.webView.scrollView.clipsToBounds = true
         
@@ -47,6 +47,11 @@ class WebviewViewController: UIViewController, EstNavigationBarDelegate {
         super.viewWillAppear(animated)
         self.getAnnounceRound()
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.webView.loadHTMLString("", baseURL: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -61,6 +66,10 @@ class WebviewViewController: UIViewController, EstNavigationBarDelegate {
     }
     
     func menuDidTap() {
+        
+        // stop webview from playing video
+        self.webView.loadHTMLString("", baseURL: nil)
+        
         let menu = MenuTableViewController(nibName: "MenuTableViewController", bundle: nil)
         menu.modalPresentationStyle = .OverCurrentContext
         
