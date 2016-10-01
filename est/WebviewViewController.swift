@@ -9,10 +9,10 @@
 import UIKit
 import WebKit
 
-class WebviewViewController: UIViewController, EstNavigationBarDelegate {
+class WebviewViewController: UIViewController, EstNavigationBarDelegate, UIWebViewDelegate {
     
     var navBar: EstNavigationBar = EstNavigationBar()
-    var webView = WKWebView(frame: CGRectMake(0.0, Est.calculatedHeightFromRatio(84.0), Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(2040.0)))
+    var webView = UIWebView(frame: CGRectMake(0.0, Est.calculatedHeightFromRatio(84.0), Est.calculatedWidthFromRatio(1242.0), Est.calculatedHeightFromRatio(2040.0)))
     
     var type: EstWebViewPage = EstWebViewPage.Rule
     
@@ -36,7 +36,8 @@ class WebviewViewController: UIViewController, EstNavigationBarDelegate {
         self.webView.clipsToBounds = true
         self.webView.scrollView.clipsToBounds = true
         
-        self.webView.scrollView.frame = self.webView.frame
+        self.webView.scalesPageToFit = true
+        self.webView.delegate = self
         
         self.view.addSubview(self.webView)
         self.view.addSubview(self.navBar)
@@ -116,6 +117,11 @@ class WebviewViewController: UIViewController, EstNavigationBarDelegate {
                 
             }
         })
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        let zoom = self.webView.bounds.size.width / self.webView.scrollView.contentSize.width
+        self.webView.scrollView.setZoomScale(zoom, animated: false)
     }
     
     /*
