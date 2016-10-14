@@ -30,7 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window = UIWindow(frame: CGRectMake(0.0, 0.0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height))
         }
         
-        ControllerManager.sharedInstance.presentSendCode()
+        // ControllerManager.sharedInstance.presentSendCode()
+        ControllerManager.sharedInstance.presentAnnouncement()
         EstHTTPService.sharedInstance.openApp()
         
         // MARK: - push noti

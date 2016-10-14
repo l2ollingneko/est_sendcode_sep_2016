@@ -33,7 +33,8 @@ class Est {
     static let DBHELVETHAICA_X_BOLD_ITALIC: String = "DBHelvethaicaX-76BdIt"
     
     static let EST_BLACK = UIColor(hexString: "#373737")
-    static let EST_YELLOW = UIColor(hexString: "#fce029")
+    static let EST_YELLOW = UIColor(hexString: "#ffffff")
+    // static let EST_YELLOW = UIColor(hexString: "#fce029")
     
     var badgeCounter: Int = 1
     

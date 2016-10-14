@@ -12,7 +12,6 @@
 		A21710681D9AFB5600FFE705 /* EstLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21710671D9AFB5600FFE705 /* EstLoadingView.swift */; };
 		A217106A1D9B185300FFE705 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21710691D9B185300FFE705 /* Reachability.swift */; };
 		A299E8911D9047F100114E76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299E8901D9047F100114E76 /* AppDelegate.swift */; };
-		A299E8981D9047F100114E76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A299E8971D9047F100114E76 /* Assets.xcassets */; };
 		A299E8A71D904B1300114E76 /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299E8A61D904B1300114E76 /* Callback.swift */; };
 		A299E8B51D904BFC00114E76 /* ICSDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = A299E8B21D904BFC00114E76 /* ICSDrawerController.m */; };
 		A299E8B61D904BFC00114E76 /* ICSDropShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = A299E8B41D904BFC00114E76 /* ICSDropShadowView.m */; };
@@ -60,6 +59,9 @@
 		A2E998271D95A25A00C5FF3B /* CodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2E998251D95A25A00C5FF3B /* CodeTableViewCell.xib */; };
 		A2E9982A1D95A52300C5FF3B /* SendButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E998281D95A52300C5FF3B /* SendButtonTableViewCell.swift */; };
 		A2E9982B1D95A52300C5FF3B /* SendButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2E998291D95A52300C5FF3B /* SendButtonTableViewCell.xib */; };
+		A2EBDD421DB0E139009D4E16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2EBDD411DB0E139009D4E16 /* Assets.xcassets */; };
+		A2EBDD471DB0E559009D4E16 /* AnnouncementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EBDD451DB0E559009D4E16 /* AnnouncementViewController.swift */; };
+		A2EBDD481DB0E559009D4E16 /* AnnouncementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EBDD461DB0E559009D4E16 /* AnnouncementViewController.xib */; };
 		A2F9DA201D95AAC400917DF1 /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9DA1E1D95AAC400917DF1 /* NoticeTableViewCell.swift */; };
 		A2F9DA211D95AAC400917DF1 /* NoticeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F9DA1F1D95AAC400917DF1 /* NoticeTableViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -71,7 +73,6 @@
 		A21710691D9B185300FFE705 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A299E88D1D9047F100114E76 /* est.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = est.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A299E8901D9047F100114E76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A299E8971D9047F100114E76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A299E89C1D9047F100114E76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A299E8A61D904B1300114E76 /* Callback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Callback.swift; sourceTree = "<group>"; };
 		A299E8B01D904BFC00114E76 /* est-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "est-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -123,6 +124,9 @@
 		A2E998251D95A25A00C5FF3B /* CodeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CodeTableViewCell.xib; sourceTree = "<group>"; };
 		A2E998281D95A52300C5FF3B /* SendButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendButtonTableViewCell.swift; sourceTree = "<group>"; };
 		A2E998291D95A52300C5FF3B /* SendButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendButtonTableViewCell.xib; sourceTree = "<group>"; };
+		A2EBDD411DB0E139009D4E16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A2EBDD451DB0E559009D4E16 /* AnnouncementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementViewController.swift; sourceTree = "<group>"; };
+		A2EBDD461DB0E559009D4E16 /* AnnouncementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementViewController.xib; sourceTree = "<group>"; };
 		A2F9DA1E1D95AAC400917DF1 /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
 		A2F9DA1F1D95AAC400917DF1 /* NoticeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeTableViewCell.xib; sourceTree = "<group>"; };
 		B49160CC8CFAAF3F9B4B41EF /* Pods-est.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-est.debug.xcconfig"; path = "Pods/Target Support Files/Pods-est/Pods-est.debug.xcconfig"; sourceTree = "<group>"; };
@@ -209,8 +213,8 @@
 				A299E8A41D90490100114E76 /* libraries */,
 				A2D606601D99ADE300CD2650 /* resources */,
 				A299E8901D9047F100114E76 /* AppDelegate.swift */,
-				A299E8971D9047F100114E76 /* Assets.xcassets */,
 				A2D606741D99E61600CD2650 /* LaunchScreen.storyboard */,
+				A2EBDD411DB0E139009D4E16 /* Assets.xcassets */,
 				A299E89C1D9047F100114E76 /* Info.plist */,
 				A2D6066D1D99B88300CD2650 /* todo */,
 			);
@@ -220,6 +224,7 @@
 		A299E8A21D9048F900114E76 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A2EBDD441DB0E549009D4E16 /* announcement */,
 				A2E997D91D91352600C5FF3B /* checkwinner */,
 				A2E997D71D91350700C5FF3B /* menu */,
 				A2D6066F1D99E17200CD2650 /* popup */,
@@ -349,6 +354,7 @@
 		A2E997C31D911F7900C5FF3B /* components */ = {
 			isa = PBXGroup;
 			children = (
+				A2EBDD431DB0E4F8009D4E16 /* announcement */,
 				A21710661D9AFB4800FFE705 /* loadingview */,
 				A21710631D9AE50200FFE705 /* alertview */,
 				A2E997DF1D9156DD00C5FF3B /* tableviewcontroller */,
@@ -445,6 +451,22 @@
 			name = backgroundcell;
 			sourceTree = "<group>";
 		};
+		A2EBDD431DB0E4F8009D4E16 /* announcement */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = announcement;
+			sourceTree = "<group>";
+		};
+		A2EBDD441DB0E549009D4E16 /* announcement */ = {
+			isa = PBXGroup;
+			children = (
+				A2EBDD451DB0E559009D4E16 /* AnnouncementViewController.swift */,
+				A2EBDD461DB0E559009D4E16 /* AnnouncementViewController.xib */,
+			);
+			name = announcement;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -480,7 +502,7 @@
 				TargetAttributes = {
 					A299E88C1D9047F100114E76 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 3HVSAM84K3;
+						DevelopmentTeam = FQ9R46R5K8;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -519,6 +541,7 @@
 			files = (
 				A2D6066C1D99AE0C00CD2650 /* DB Helvethaica X.ttf in Resources */,
 				A2D6064D1D972CE400CD2650 /* WebviewViewController.xib in Resources */,
+				A2EBDD421DB0E139009D4E16 /* Assets.xcassets in Resources */,
 				A2D6065F1D99411300CD2650 /* AnnounceTableViewCell.xib in Resources */,
 				A2D606481D97179A00CD2650 /* MenuTableViewCell.xib in Resources */,
 				A2D606431D9713E600CD2650 /* MenuTableViewController.xib in Resources */,
@@ -526,7 +549,7 @@
 				A2D606561D974BFD00CD2650 /* CheckWinnerViewController.xib in Resources */,
 				A2E9981C1D94FA3200C5FF3B /* SendCodeTableViewController.xib in Resources */,
 				A2D606751D99E61600CD2650 /* LaunchScreen.storyboard in Resources */,
-				A299E8981D9047F100114E76 /* Assets.xcassets in Resources */,
+				A2EBDD481DB0E559009D4E16 /* AnnouncementViewController.xib in Resources */,
 				A2D606681D99AE0C00CD2650 /* DB Helvethaica X Bd.ttf in Resources */,
 				A2E998271D95A25A00C5FF3B /* CodeTableViewCell.xib in Resources */,
 				A2D606671D99AE0C00CD2650 /* DB Helvethaica X Bd It.ttf in Resources */,
@@ -601,6 +624,7 @@
 				A21710651D9AE51C00FFE705 /* EstPopupAlertView.swift in Sources */,
 				A2D6065E1D99411300CD2650 /* AnnounceTableViewCell.swift in Sources */,
 				A2E9982A1D95A52300C5FF3B /* SendButtonTableViewCell.swift in Sources */,
+				A2EBDD471DB0E559009D4E16 /* AnnouncementViewController.swift in Sources */,
 				A21710681D9AFB5600FFE705 /* EstLoadingView.swift in Sources */,
 				A2E997CE1D91202D00C5FF3B /* EstHTTPService.swift in Sources */,
 				A2D606551D974BFD00CD2650 /* CheckWinnerViewController.swift in Sources */,
@@ -733,7 +757,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 3HVSAM84K3;
+				DEVELOPMENT_TEAM = FQ9R46R5K8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/est",
@@ -757,7 +781,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 3HVSAM84K3;
+				DEVELOPMENT_TEAM = FQ9R46R5K8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/est",

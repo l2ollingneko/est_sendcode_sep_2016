@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "check_winner_bg.png",
+      "filename" : "splash.png",
       "scale" : "1x"
     },
     {

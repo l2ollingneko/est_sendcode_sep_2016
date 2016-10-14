@@ -83,4 +83,11 @@ class ControllerManager {
         self.appDelegate.window?.makeKeyAndVisible()
     }
     
+    // MARK: - announcement
+    
+    func presentAnnouncement() {
+        self.appDelegate.window?.rootViewController = AnnouncementViewController(nibName: "AnnouncementViewController", bundle: nil)
+        self.appDelegate.window?.makeKeyAndVisible()
+    }
+    
 }
