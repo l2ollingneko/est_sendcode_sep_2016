@@ -85,7 +85,9 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AppsFlyer-SDK/AppsFlyer_SDK.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GoogleToolboxForMac/GoogleToolboxForMac.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Parse/Parse.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReachabilitySwift/ReachabilitySwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftHEXColors/SwiftHEXColors.framework"
@@ -95,7 +97,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AppsFlyer-SDK/AppsFlyer_SDK.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GoogleToolboxForMac/GoogleToolboxForMac.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Parse/Parse.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReachabilitySwift/ReachabilitySwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftHEXColors/SwiftHEXColors.framework"

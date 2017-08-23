@@ -1,30 +1,30 @@
 PODS:
-  - Alamofire (3.5.0)
-  - AppsFlyer-SDK (4.5.5)
+  - Alamofire (4.4.0)
+  - AppsFlyer-SDK (4.6.1)
   - Bolts/Tasks (1.8.4)
-  - FirebaseAnalytics (3.4.2):
+  - FirebaseAnalytics (3.9.0):
+    - FirebaseCore (~> 3.6)
     - FirebaseInstanceID (~> 1.0)
-    - GoogleInterchangeUtilities (~> 1.2)
-    - GoogleSymbolUtilities (~> 1.1)
-    - GoogleUtilities (~> 1.2)
-  - FirebaseInstanceID (1.0.8)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseCore (3.6.0):
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseInstanceID (1.0.10):
+    - FirebaseCore (~> 3.6)
   - Google/Analytics (3.0.3):
     - Google/Core
     - GoogleAnalytics (~> 3.12)
   - Google/Core (3.0.3):
     - FirebaseAnalytics (~> 3.2)
   - GoogleAnalytics (3.17.0)
-  - GoogleInterchangeUtilities (1.2.1):
-    - GoogleSymbolUtilities (~> 1.0)
-  - GoogleSymbolUtilities (1.1.1)
-  - GoogleUtilities (1.3.1):
-    - GoogleSymbolUtilities (~> 1.0)
-  - Parse (1.14.2):
+  - GoogleToolboxForMac/Defines (2.1.1)
+  - GoogleToolboxForMac/NSData+zlib (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+  - Parse (1.14.4):
     - Bolts/Tasks (~> 1.8)
-  - ReachabilitySwift (2.4)
-  - SwiftHEXColors (1.0.4)
-  - SwiftKeychainWrapper (2.0.0)
-  - SwiftyJSON (2.3.2)
+  - ReachabilitySwift (3)
+  - SwiftHEXColors (1.1.0)
+  - SwiftKeychainWrapper (3.0.1)
+  - SwiftyJSON (3.1.4)
   - THLabel (1.4.8)
 
 DEPENDENCIES:
@@ -32,30 +32,29 @@ DEPENDENCIES:
   - AppsFlyer-SDK
   - Google/Analytics
   - Parse
-  - ReachabilitySwift (~> 2.4)
+  - ReachabilitySwift
   - SwiftHEXColors
   - SwiftKeychainWrapper
-  - SwiftyJSON (~> 2.3.2)
+  - SwiftyJSON
   - THLabel
 
 SPEC CHECKSUMS:
-  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
-  AppsFlyer-SDK: bdad2823ea8732e3bf8a25d2ab59bae97276704a
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  AppsFlyer-SDK: ef99bca272ec93af56a4293ea4d2e0a81d3a37d5
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  FirebaseAnalytics: 3f5358d9104adf159cc8d99b7b501e50099a39ad
-  FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
+  FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
+  FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
+  FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
-  GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
-  GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
-  GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
-  Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
-  ReachabilitySwift: dc7452dab85ff881904215e1a113326ad8d07beb
-  SwiftHEXColors: b0ecc7bd83a1aa2e1956f9ba51f55ebb2bcf86ef
-  SwiftKeychainWrapper: 3575838215fa36c816899c301a7afe370bd94814
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  Parse: b0aa91d2c435e53d4a9af26e741e014c9b35c42e
+  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+  SwiftHEXColors: 8f7e364df7929e32cff9f9eeb044bb215167d6be
+  SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   THLabel: a2ca21c06cd7daba5c0c6d3095d48f6c137a3d80
 
-PODFILE CHECKSUM: 32ab4d5b446eaf92079d21a89cffe5563d7c467d
+PODFILE CHECKSUM: f993124a68af13b4d066bae72f0dc3ffe608e53c
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.1.1

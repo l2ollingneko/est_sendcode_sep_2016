@@ -2,8 +2,7 @@
 //  AppsFlyerTracker.h
 //  AppsFlyerLib
 //
-//  AppsFlyer iOS SDK v4.5.5
-//  29-Jun-2016
+//  AppsFlyer iOS SDK v4.6.1
 //  Copyright (c) 2013 AppsFlyer Ltd. All rights reserved.
 //
 
@@ -33,6 +32,9 @@
 #define AFEventOpenedFromPushNotification @"af_opened_from_push_notification"
 #define AFEventLocation                 @"af_location_coordinates"
 #define AFEventOrderId                  @"af_order_id"
+#define AFEventCustomerSegment          @"af_customer_segment"
+
+
 
 // In app event parameter names
 #define AFEventParamLevel                  @"af_level"
@@ -63,6 +65,14 @@
 #define AFEventParamValidated              @"af_validated"
 #define AFEventParamRevenue                @"af_revenue"
 #define AFEventParamReceiptId              @"af_receipt_id"
+#define AFEventParamTutorialId             @"af_tutorial_id"
+#define AFEventParamAchievenmentId         @"af_achievement_id"
+#define AFEventParamVirtualCurrencyName    @"af_virtual_currency_name"
+#define AFEventParamDeepLink               @"af_deep_link"
+#define AFEventParamOldVersion             @"af_old_version"
+#define AFEventParamNewVersion             @"af_new_version"
+#define AFEventParamReviewText             @"af_review_text"
+#define AFEventParamCouponCode             @"af_coupon_code"
 #define AFEventParam1                      @"af_param_1"
 #define AFEventParam2                      @"af_param_2"
 #define AFEventParam3                      @"af_param_3"
@@ -78,7 +88,8 @@
 typedef enum  {
     EmailCryptTypeNone = 0,
     EmailCryptTypeSHA1 = 1,
-    EmailCryptTypeMD5 = 2
+    EmailCryptTypeMD5 = 2,
+    EmailCryptTypeSHA256 = 3
 } EmailCryptType;
 
 /*
@@ -176,6 +187,10 @@ typedef enum  {
  */
 @property (nonatomic, setter = setUseUninstallSandbox:) BOOL useUninstallSandbox;
 
+/*
+ * Advertising Id (exposed for RemoteDebug)
+ */
+@property (nonatomic, strong) NSString *advertiserId;
 
 /*
  * Use this to send the User's emails
@@ -191,7 +206,7 @@ typedef enum  {
  * Example :
  *      [[AppsFlyer sharedTracker] trackEvent:@"hotel-booked" withValue:"200"];
  */
-- (void) trackEvent:(NSString*)eventName withValue:(NSString*)value;
+- (void) trackEvent:(NSString*)eventName withValue:(NSString*)value __attribute__((deprecated));
 
 /*
  * Use this method to track an events with mulitple values. See AppsFlyer's documentation for details. 
@@ -236,8 +251,10 @@ typedef enum  {
 /*
  * In case you want to track deep linking, call this method from your delegate's openURL method with refferer.
  */
-- (void) handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication withAnnotation:(id) annotation;
+- (void) handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication withAnnotation:(id) annotation __attribute__((deprecated));
 
+
+- (void) handleOpenUrl:(NSURL *) url options:(NSDictionary *)options;
 /* 
  * For Universal links iOS 9
  */
@@ -257,5 +274,8 @@ typedef enum  {
 */
 - (NSString *) getSDKVersion;
 
+
+
+- (void) remoteDebuggingCallWithData:(NSString *) data;
 
 @end
